@@ -165,7 +165,7 @@ def bake_loft_chart(spec, chart, atlas, mga, height, dirt, px, cls, lights):
         wedge = (Z < 1.92) & (X3 >= xsw - 0.55) & (X3 < xsw - 0.15) & (Z > 0.55)
         put(wedge, C['grey_light'], 0.6)
         # black front mask: windscreen frame incl. the shelf below it
-        put((tn >= 0.47) & (J2 >= 8.6) & (J2 <= 13.7), C['black'], 0.85)
+        put((tn >= 0.49) & (J2 >= 8.6) & (J2 <= 13.7), C['black'], 0.85)
         # black parallelogram around the cab side window (follows the windscreen rake)
         put((tn >= 0.06) & (tn <= 0.29) & (J2 >= 9.6) & (J2 <= 12.6), C['black'], 0.85)
         # skirt and coupler recess

@@ -158,20 +158,19 @@ def gangway(sw, x_body, x_end, lod):
 
 
 def front_coupler(sw, x_tip, lod):
-    """Scharfenberg coupler inside the nose recess (pointing +x) and the lower skirt."""
+    """Scharfenberg coupler in the nose recess (pointing +x); x_tip is the coupler face."""
     m = Mesh(1)
     dark = sw.uvf('bogie_dark')
     grey = sw.uvf('coupler_box')
-    zc = 1.36
-    cylinder(m, (x_tip - 0.50, 0, zc), (x_tip - 0.10, 0, zc), 0.07, 10, dark)
-    box(m, (x_tip - 0.16, -0.17, zc - 0.15), (x_tip + 0.0, 0.17, zc + 0.15), dark)
-    box(m, (x_tip - 0.30, -0.25, zc + 0.17), (x_tip - 0.06, 0.25, zc + 0.31), grey)
+    zc = 1.32
+    cylinder(m, (12.72, 0, zc), (x_tip - 0.18, 0, zc), 0.08, 12, dark)
+    box(m, (x_tip - 0.22, -0.20, zc - 0.17), (x_tip, 0.20, zc + 0.17), dark)
+    box(m, (x_tip - 0.40, -0.26, zc + 0.19), (x_tip - 0.10, 0.26, zc + 0.31), grey)
     if lod == 0:
-        cylinder(m, (x_tip, 0.07, zc + 0.06), (x_tip + 0.03, 0.07, zc + 0.06), 0.05, 10, sw.uvf('bogie_frame'))
-        cylinder(m, (x_tip, -0.07, zc - 0.06), (x_tip + 0.03, -0.07, zc - 0.06), 0.03, 8, sw.uvf('bogie_frame'))
-        cylinder(m, (x_tip - 0.05, 0.10, zc - 0.15), (x_tip + 0.05, 0.14, zc - 0.45), 0.02, 6, sw.uvf('panto_alu'))
-    # snow plough / skirt below the nose
-    box(m, (x_tip - 1.20, -0.85, 0.22), (x_tip - 0.55, 0.85, 0.40), dark)
+        cylinder(m, (x_tip, 0.08, zc + 0.07), (x_tip + 0.04, 0.08, zc + 0.07), 0.06, 12, sw.uvf('bogie_frame'))
+        cylinder(m, (x_tip, -0.08, zc - 0.07), (x_tip + 0.03, -0.08, zc - 0.07), 0.035, 8, sw.uvf('bogie_frame'))
+        cylinder(m, (x_tip - 0.30, 0.15, zc + 0.12), (x_tip - 0.30, 0.15, zc + 0.19), 0.03, 8, sw.uvf('panto_alu'))
+        cylinder(m, (x_tip - 0.05, 0.12, zc - 0.17), (x_tip + 0.10, 0.18, zc - 0.55), 0.022, 6, sw.uvf('panto_alu'))
     return m
 
 

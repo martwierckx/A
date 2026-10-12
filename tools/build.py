@@ -33,9 +33,9 @@ LIGHT_WHITE = (0.25, 0.25)
 LIGHT_RED = (0.25, 0.75)
 
 # headlight clusters on the nose: (y, z, radius) - lower LED clusters, top light
-HEADLIGHTS = [(0.98, 2.32, 0.10), (-0.98, 2.32, 0.10)]
-TOPLIGHT = (0.0, 4.32, 0.09)
-TAILLIGHTS = [(0.74, 2.33, 0.05), (-0.74, 2.33, 0.05)]
+HEADLIGHTS = [(1.00, 2.22, 0.10), (-1.00, 2.22, 0.10)]
+TOPLIGHT = (0.0, 4.30, 0.09)
+TAILLIGHTS = [(0.80, 2.14, 0.05), (-0.80, 2.14, 0.05)]
 
 ROT180 = rot_z(math.pi)
 
@@ -89,7 +89,7 @@ class CarGeometry:
             lf.end_cap(m, 0, spec.x_front, 1, sw.uvf('endwall'))
             m.extend(parts.gangway(sw, spec.x_front, spec.half_len, lod))
         else:
-            m.extend(parts.front_coupler(sw, spec.half_len - 0.05, lod))
+            m.extend(parts.front_coupler(sw, 13.36, lod))
             if lod == 0:
                 self._front_details(m)
         # roof equipment / pantograph
@@ -163,8 +163,8 @@ class CarGeometry:
         for (y, z, r) in HEADLIGHTS:
             hit = lf.surface_point(y, z)
             p, n = hit
-            white.extend(parts.light_patch(p, n, 0.58, 0.14, LIGHT_WHITE, round_=False,
-                                           tilt=math.copysign(0.38, y)))
+            white.extend(parts.light_patch(p, n, 0.50, 0.14, LIGHT_WHITE, round_=False,
+                                           tilt=math.copysign(0.55, y)))
             self.light_pos.append(('head', p, n))
         hit = lf.surface_point(TOPLIGHT[0], TOPLIGHT[1])
         if hit:
@@ -607,9 +607,9 @@ def labels_meta(g, rot):
         M[:3, 0] = (0, 1, 0)
         M[:3, 1] = (0, 0, 1)
         M[:3, 2] = (1, 0, 0)
-        hit = g.lofts[0].surface_point(0.0, 3.95)
+        hit = g.lofts[0].surface_point(0.0, 3.85)
         x = hit[0][0] - 0.12 if hit else 12.0
-        M[:3, 3] = (x, 0, 3.95)
+        M[:3, 3] = (x, 0, 3.85)
         items.append((M, (0.95, 0.14)))
     for x in g.spec.door_xs:
         for s in (1, -1):

@@ -51,12 +51,14 @@ XT = 13.28
 T_CORNER = 0.30
 T_FRONT = 0.62
 CAB_TOP = TOP
-CHIN_STEP = 0.035          # cab sides above the headlight crease are slightly narrower
-#          j:   0      1      2      3      4      5      6      7      8      9      10      11     12      13
-NOSE_Z = [0.30, 0.30, 0.30, 0.33, 0.42, 0.80, 0.95, 1.70, 2.15, 2.45, 2.875, 3.30, 3.725, 4.15]
-NOSE_X = [12.95, 12.95, 12.95, 12.98, 13.05, 13.16, 13.28, 13.28, 13.25, 12.75, 12.475, 12.20, 11.925, 11.65]
-HOOD_X0, HOOD_X1 = 10.85, 0.80     # roof hood: x = X0 + X1 cos(phi), z = 4.15 + 0.45 sin(phi)
-NOSE_CREASES = (2, 5, 6, 8, 9, 13)
+CHIN_STEP = 0.02           # cab sides above the headlights are slightly narrower
+# side view of the nose on the centre line: skirt, near-vertical lower front, rounded knee,
+# raked windscreen (about 29 degrees), then a smooth bend into the roof (rows 14..21)
+#          j:   0      1      2      3      4      5      6      7      8      9      10     11     12     13
+NOSE_Z = [0.36, 0.36, 0.36, 0.42, 0.60, 0.84, 0.95, 1.65, 2.12, 2.42, 2.83, 3.23, 3.64, 4.05]
+NOSE_X = [13.00, 13.00, 13.12, 13.32, 13.29, 13.16, 13.12, 13.08, 13.02, 12.84, 12.62, 12.40, 12.17, 11.95]
+ROOF_BEND = ((11.95, 4.05), (11.65, 4.60), (10.90, 4.60))   # quadratic Bezier into the roof
+NOSE_CREASES = (2, 3, 5, 6, 9)
 
 
 def nose_rows(base):
@@ -66,24 +68,25 @@ def nose_rows(base):
     xf = np.zeros(J)
     R = np.zeros(J)
     Rf = np.zeros(J)
+    (x0, z0), (x1, z1), (x2, z2) = ROOF_BEND
     for j in range(J):
         if j <= J_EAVE:
             z[j] = NOSE_Z[j]
             xf[j] = NOSE_X[j]
         else:
-            phi = (j - J_EAVE) / (J - 1 - J_EAVE) * math.pi / 2
-            z[j] = NOSE_Z[J_EAVE] + (CAB_TOP - NOSE_Z[J_EAVE]) * math.sin(phi)
-            xf[j] = HOOD_X0 + HOOD_X1 * math.cos(phi)
-        if j >= 9:
-            W[j] = max(W[j] - CHIN_STEP, 0.0) if W[j] > 0 else 0.0
-        if j <= 4:
-            R[j], Rf[j] = 0.50, 4.0
+            s = (j - J_EAVE) / (J - 1 - J_EAVE)
+            xf[j] = (1 - s) ** 2 * x0 + 2 * (1 - s) * s * x1 + s ** 2 * x2
+            z[j] = (1 - s) ** 2 * z0 + 2 * (1 - s) * s * z1 + s ** 2 * z2
+        if j >= 9 and W[j] > 0:
+            W[j] = W[j] - CHIN_STEP
+        if j <= 5:
+            R[j], Rf[j] = 1.00, 2.6
         elif j <= 8:
-            R[j], Rf[j] = 0.45, 4.0
+            R[j], Rf[j] = 0.95, 2.4
         elif j <= J_EAVE:
-            R[j], Rf[j] = 0.30, 3.0
+            R[j], Rf[j] = 0.95 + 0.10 * (j - 9) / (J_EAVE - 9), 2.2
         else:
-            R[j], Rf[j] = min(0.30, 0.8 * W[j]), 3.0
+            R[j], Rf[j] = min(1.10, 0.95 * W[j]), 2.2
     return W, z, xf, R, Rf
 
 
@@ -206,8 +209,8 @@ class CarSpec:
                             [(a, b, CELLS_UPPER_WIN) for a, b in uw] +
                             [(a, b, CELLS_MEZZ_WIN) for a, b in mz] +
                             [(7.00, 7.60, CELLS_MEZZ_WIN), (t_to_x(0.08), t_to_x(0.22), CELLS_CABWIN)] +
-                            [(t_to_x(0.46), XT + 0.01, CELLS_WINDSCREEN)])
-        self.recess = [(t_to_x(0.74), XT + 0.01, CELLS_RECESS)] if kind == 'end' else []
+                            [(t_to_x(0.53), XT + 0.01, CELLS_WINDSCREEN)])
+        self.recess = [(t_to_x(0.60), XT + 0.01, CELLS_RECESS)] if kind == 'end' else []
         self.door_w = 1.30
         self.doors = [(x - self.door_w / 2, x + self.door_w / 2, CELLS_DOOR) for x in self.door_xs]
         self.door_x = self.door_xs[0]
@@ -261,7 +264,7 @@ class CarSpec:
         W, zt, xf, R, Rf = nose_rows(base)
         t = np.clip((x[nose] - XS) / (XT - XS), 0, 1)
         # skirt rows only drop down around the front corners; all other rows settle early
-        skirt = np.arange(J) <= 5
+        skirt = np.arange(J) <= 6
         blend = np.where(skirt[None, :], smoothstep(0.22, 0.56, t)[:, None], smoothstep(0.0, 0.15, t)[:, None])
         X = np.zeros((len(t), J))
         Y = np.zeros((len(t), J))
