@@ -867,27 +867,43 @@ def to_tga(path, img, alpha=None, gray=False):
     a.save(path)
 
 
+def fit_camera(P, w, h, direction, fov, target_z=2.0, fill=0.92):
+    """Camera eye along `direction` from the bbox centre so that all points P fit in the frame."""
+    lo, hi = P.reshape(-1, 3).min(0), P.reshape(-1, 3).max(0)
+    centre = np.array([(lo[0] + hi[0]) / 2, 0.0, target_z])
+    d = np.asarray(direction, float)
+    d /= np.linalg.norm(d)
+    corners = np.array([[x, y, z] for x in (lo[0], hi[0]) for y in (lo[1], hi[1]) for z in (lo[2], hi[2])])
+    dist = 30.0
+    for _ in range(40):
+        r = Renderer(w, h, centre + d * dist, centre, fov=fov, ss=1)
+        s = r.project(corners)
+        ex = max(np.abs(s[:, 0] - w / 2).max() / (w / 2), np.abs(s[:, 1] - h / 2).max() / (h / 2))
+        dist *= (ex / fill) ** 0.7
+    return centre + d * dist, centre
+
+
 def make_icons(geoms, tex):
     icon_dir = ensure(os.path.join(VEH, 'icons'))
     for g in geoms:
         rot = not g.var.get('cab_front', True)
         calls = scene_arrays(car_draw_meshes(g, rot, lod=1))
+        allP = np.concatenate([c[0] for c in calls])
         name = g.var['name']
         for suffix, (w, h), eye, ortho in (('_icon20@2x', (94, 40), (0, -60, 2.3), 2.6),
                                             ('_icon_small@2x', (262, 112), (0, -60, 2.3), 2.6),
-                                            ('_store', (372, 248), (12.5, -12.5, 5.5), None)):
+                                            ('_store', (372, 248), None, None)):
             if ortho:
                 r = Renderer(w, h, eye, (0, 0, 2.3), ortho=14.2 * h / w, ss=3)
             else:
-                r = Renderer(w, h, eye, (0, 0, 1.9), fov=48, ss=3)
+                eye, tgt = fit_camera(allP, w, h, (0.55, -0.80, 0.30), 35, 1.9)
+                r = Renderer(w, h, eye, tgt, fov=35, ss=3)
             draw_calls(r, calls, tex)
             img, a = r.image()
             to_tga(os.path.join(icon_dir, name + suffix + '.tga'), img, a)
             if suffix != '_store':
                 to_tga(os.path.join(icon_dir, name + suffix.replace('@2x', '_cblend@2x') + '.tga'),
                        np.zeros_like(a), gray=True)
-    # group icon: whole train, side view
-    return
 
 
 def train_layout(geoms):

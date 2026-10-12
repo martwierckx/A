@@ -39,17 +39,80 @@ CELLS_CABWIN = (10, 11)
 CELLS_WINDSCREEN = (9, 10, 11, 12)
 CELLS_RECESS = (6,)
 
-# driving cab nose (end cars). Nominal stations XS..XT are a parameter t = 0..1. For every
-# profile row j the side stays straight (t < NOSE_T0) up to a row specific corner start and
-# then turns in to the centre line along a plan-view superellipse of depth NOSE_DEPTH[j].
+# driving cab nose (end cars). Nominal stations XS..XT are a parameter t = 0..1 that is the
+# same "feature line" on every profile row j:
+#   t in [0, T_CORNER]       straight side wall
+#   t in [T_CORNER, T_FRONT] corner arc (radius NOSE_R[j])
+#   t in [T_FRONT, 1]        slightly curved front (radius NOSE_RF[j]) to the centre line
+# In side view every row j has its own height NOSE_Z[j] and front position NOSE_X[j]; these
+# points lie on straight lines (skirt, chin, shelf, windscreen) with an elliptic roof hood.
 XS = 10.0
 XT = 13.28
-NOSE_T0 = 0.35
+T_CORNER = 0.30
+T_FRONT = 0.62
 CAB_TOP = TOP
-NOSE_Z = {0: 0.30, 1: 0.30, 2: 0.30, 3: 0.345, 4: 0.45, 5: 0.80, 6: 0.95, 7: 1.70, 8: 2.20,
-          9: 2.50, 10: 2.92, 11: 3.33, 12: 3.74, 13: 4.15}
-NOSE_FRONT = ([0.30, 0.45, 0.80, 0.95, 1.70, 2.20, 2.50, 4.15, 4.40, 4.60],
-              [12.95, 13.08, 13.20, 13.26, 13.28, 13.15, 12.70, 11.55, 11.10, 10.70])
+CHIN_STEP = 0.035          # cab sides above the headlight crease are slightly narrower
+#          j:   0      1      2      3      4      5      6      7      8      9      10      11     12      13
+NOSE_Z = [0.30, 0.30, 0.30, 0.33, 0.42, 0.80, 0.95, 1.70, 2.15, 2.45, 2.875, 3.30, 3.725, 4.15]
+NOSE_X = [12.95, 12.95, 12.95, 12.98, 13.05, 13.16, 13.28, 13.28, 13.25, 12.75, 12.475, 12.20, 11.925, 11.65]
+HOOD_X0, HOOD_X1 = 10.85, 0.80     # roof hood: x = X0 + X1 cos(phi), z = 4.15 + 0.45 sin(phi)
+NOSE_CREASES = (2, 5, 6, 8, 9, 13)
+
+
+def nose_rows(base):
+    """Per-row target (W, z, xf, R, Rf) of the nose, from the cab section at XS."""
+    W = base[:, 0].copy()
+    z = base[:, 1].copy()
+    xf = np.zeros(J)
+    R = np.zeros(J)
+    Rf = np.zeros(J)
+    for j in range(J):
+        if j <= J_EAVE:
+            z[j] = NOSE_Z[j]
+            xf[j] = NOSE_X[j]
+        else:
+            phi = (j - J_EAVE) / (J - 1 - J_EAVE) * math.pi / 2
+            z[j] = NOSE_Z[J_EAVE] + (CAB_TOP - NOSE_Z[J_EAVE]) * math.sin(phi)
+            xf[j] = HOOD_X0 + HOOD_X1 * math.cos(phi)
+        if j >= 9:
+            W[j] = max(W[j] - CHIN_STEP, 0.0) if W[j] > 0 else 0.0
+        if j <= 4:
+            R[j], Rf[j] = 0.50, 4.0
+        elif j <= 8:
+            R[j], Rf[j] = 0.45, 4.0
+        elif j <= J_EAVE:
+            R[j], Rf[j] = 0.30, 3.0
+        else:
+            R[j], Rf[j] = min(0.30, 0.8 * W[j]), 3.0
+    return W, z, xf, R, Rf
+
+
+def plan_point(t, W, xf, R, Rf):
+    """Plan-view point (x, y) of one row at parameter t (array)."""
+    t = np.asarray(t, float)
+    if W < 1e-4:
+        return XS + (xf - XS) * np.clip(t, 0, 1), np.zeros_like(t)
+    R = min(R, W)
+    xc = xf - Rf + math.sqrt((Rf - R) ** 2 - (W - R) ** 2)
+    xc = max(xc, XS + 0.02)
+    dvec = np.array([xc - (xf - Rf), W - R])
+    dvec /= np.linalg.norm(dvec)
+    a_t = math.atan2(dvec[0], dvec[1])        # corner angle measured from +y towards +x
+    b_t = math.atan2(dvec[1], dvec[0])        # front arc angle measured from +x
+    x = np.empty_like(t)
+    y = np.empty_like(t)
+    s = t < T_CORNER
+    x[s] = XS + (xc - XS) * t[s] / T_CORNER
+    y[s] = W
+    c = (t >= T_CORNER) & (t < T_FRONT)
+    al = a_t * (t[c] - T_CORNER) / (T_FRONT - T_CORNER)
+    x[c] = xc + R * np.sin(al)
+    y[c] = (W - R) + R * np.cos(al)
+    f = t >= T_FRONT
+    be = b_t * (1 - (np.clip(t[f], 0, 1) - T_FRONT) / (1 - T_FRONT))
+    x[f] = xf - Rf + Rf * np.cos(be)
+    y[f] = Rf * np.sin(be)
+    return x, y
 
 
 def t_to_x(t):
@@ -142,9 +205,9 @@ class CarSpec:
             self.windows = ([(a, b, CELLS_LOWER_WIN) for a, b in lw] +
                             [(a, b, CELLS_UPPER_WIN) for a, b in uw] +
                             [(a, b, CELLS_MEZZ_WIN) for a, b in mz] +
-                            [(7.00, 7.60, CELLS_MEZZ_WIN), (t_to_x(0.10), t_to_x(0.24), CELLS_CABWIN)] +
-                            [(t_to_x(0.53), XT + 0.01, CELLS_WINDSCREEN)])
-        self.recess = [(t_to_x(0.84), XT + 0.01, CELLS_RECESS)] if kind == 'end' else []
+                            [(7.00, 7.60, CELLS_MEZZ_WIN), (t_to_x(0.08), t_to_x(0.22), CELLS_CABWIN)] +
+                            [(t_to_x(0.46), XT + 0.01, CELLS_WINDSCREEN)])
+        self.recess = [(t_to_x(0.74), XT + 0.01, CELLS_RECESS)] if kind == 'end' else []
         self.door_w = 1.30
         self.doors = [(x - self.door_w / 2, x + self.door_w / 2, CELLS_DOOR) for x in self.door_xs]
         self.door_x = self.door_xs[0]
@@ -167,7 +230,7 @@ class CarSpec:
         t = smoothstep(a - r, a, x) * (1 - smoothstep(b, b + r, x))
         z = ZB_HIGH + (ZB_LOW - ZB_HIGH) * t
         if self.kind == 'end':
-            z = z - 0.75 * smoothstep(9.3, 10.0, x)
+            z = z - 0.20 * smoothstep(9.3, 10.0, x)
         return z
 
     def section(self, x):
@@ -195,31 +258,19 @@ class CarSpec:
         if not nose.any():
             return out
         base = self.section(np.array([XS]))[0]                      # (J, 2)
-        zt = base[:, 1].copy()
-        for j, z in NOSE_Z.items():
-            zt[j] = z
-        # roof rows: squeeze between the windscreen top and the roof
-        e, c = base[J_EAVE, 1], base[J - 1, 1]
-        zt[J_EAVE + 1:] = NOSE_Z[J_EAVE] + (base[J_EAVE + 1:, 1] - e) / (c - e) * (CAB_TOP - NOSE_Z[J_EAVE])
-        xf = pchip(*NOSE_FRONT)(zt)
-        jj = np.arange(J)
-        depth = np.where(jj <= 8, 1.05,
-                         np.where(jj <= J_EAVE, 1.0 - 0.2 * (jj - 9) / 4.0,
-                                  0.75 - 0.25 * (jj - J_EAVE - 1) / (J - J_EAVE - 2)))
-        p = np.where(jj <= 8, 2.5, np.where(jj <= J_EAVE, 2.4, 2.0))
-        xc = np.maximum(xf - depth, XS + 0.05)
-        depth = xf - xc
-        t = np.clip((x[nose] - XS) / (XT - XS), 0, 1)[:, None]
-        straight = t < NOSE_T0
-        th = np.clip((t - NOSE_T0) / (1 - NOSE_T0), 0, 1) * math.pi / 2
-        c_ = np.clip(np.cos(th), 0, 1)
-        s_ = np.clip(np.sin(th), 0, 1)
-        ex = 2.0 / p[None, :]
-        xs_ = np.where(straight, XS + (xc[None, :] - XS) * t / NOSE_T0, xc[None, :] + depth[None, :] * s_ ** ex)
-        ys_ = np.where(straight, base[None, :, 0], base[None, :, 0] * c_ ** ex)
-        blend = smoothstep(0.0, 0.15, t)
-        out[nose, :, 0] = xs_
-        out[nose, :, 1] = ys_
+        W, zt, xf, R, Rf = nose_rows(base)
+        t = np.clip((x[nose] - XS) / (XT - XS), 0, 1)
+        # skirt rows only drop down around the front corners; all other rows settle early
+        skirt = np.arange(J) <= 5
+        blend = np.where(skirt[None, :], smoothstep(0.22, 0.56, t)[:, None], smoothstep(0.0, 0.15, t)[:, None])
+        X = np.zeros((len(t), J))
+        Y = np.zeros((len(t), J))
+        for j in range(J):
+            X[:, j], Y[:, j] = plan_point(t, W[j], xf[j], R[j], Rf[j])
+        # rows start at the cab section and reach their nose width/height early on the straight part
+        Y = np.where(t[:, None] < T_CORNER, base[None, :, 0] + (Y - base[None, :, 0]) * np.minimum(blend, 1), Y)
+        out[nose, :, 0] = X
+        out[nose, :, 1] = Y
         out[nose, :, 2] = base[None, :, 1] + (zt[None, :] - base[None, :, 1]) * blend
         return out
 
@@ -234,10 +285,10 @@ class CarSpec:
         pts.update(self.door_xs)
         for e in (a, b):
             pts.update((e - 0.9, e - 0.55, e - 0.2, e + 0.2, e + 0.55, e + 0.9))
-        nose_t = {0: [0, .04, .08, .10, .14, .19, .24, .29, .35, .40, .45, .50, .53, .57, .62, .67, .72, .77,
-                      .81, .84, .87, .90, .93, .96, .98, .99, 1.0],
-                  1: [0, .10, .24, .35, .45, .53, .62, .72, .84, .93, 1.0],
-                  2: [0, .35, .53, .72, .87, 1.0]}[lod]
+        nose_t = {0: [0, .05, .08, .10, .15, .20, .22, .25, .27, .30, .34, .38, .42, .46, .50, .54, .58, .62,
+                      .66, .70, .74, .78, .82, .86, .90, .94, .97, 1.0],
+                  1: [0, .08, .15, .22, .30, .38, .46, .54, .62, .74, .86, 1.0],
+                  2: [0, .30, .46, .62, .80, 1.0]}[lod]
         if self.kind == 'end':
             pts = {p for p in pts if p <= XS}
             pts.update((9.3, 9.5, 9.7, 9.85))
@@ -297,6 +348,23 @@ class Loft:
         N[..., 1] = np.where(on_seam, 0.0, N[..., 1])
         N /= np.linalg.norm(N, axis=2, keepdims=True) + 1e-12
         self.N = N
+        # one-sided normals for crease rows of the cab nose (sharp feature lines)
+        self.crease = set(NOSE_CREASES) if spec.kind == 'end' else set()
+        self.in_nose = (self.xs >= XS - 1e-6) if spec.kind == 'end' else np.zeros(I, bool)
+        dup = np.zeros_like(P)
+        dn = np.zeros_like(P)
+        dup[:, :-1] = P[:, 1:] - P[:, :-1]
+        dup[:, -1] = dup[:, -2]
+        dn[:, 1:] = P[:, 1:] - P[:, :-1]
+        dn[:, 0] = dn[:, 1]
+
+        def norm_of(dj_):
+            n = np.cross(dj_, dx)
+            n /= np.linalg.norm(n, axis=2, keepdims=True) + 1e-12
+            n[..., 1] = np.where(on_seam, 0.0, n[..., 1])
+            return n / (np.linalg.norm(n, axis=2, keepdims=True) + 1e-12)
+        self.N_up = norm_of(dup)     # use for a crease row as the lower edge of a cell
+        self.N_dn = norm_of(dn)      # use for a crease row as the upper edge of a cell
         self.U = np.zeros((I, J, 2))
         self.U[..., 0] = ((self.xs + 13.6) / 27.2)[:, None]
         self.U[..., 1] = (chart[0] + VNOM * (chart[1] - chart[0]))[None, :]
@@ -311,12 +379,17 @@ class Loft:
             return None
         return o
 
+    def shade_normal(self, a, b, cell_j):
+        if b in self.crease and self.in_nose[a]:
+            return (self.N_up if b == cell_j else self.N_dn)[a, b].copy()
+        return self.N[a, b].copy()
+
     def corners(self, i, j, side, offset=0.0):
         idx = [(i, j), (i, j + 1), (i + 1, j + 1), (i + 1, j)]
         pts, nrm, uvs = [], [], []
         for a, b in idx:
             p = self.P[a, b] - offset * self.N[a, b]
-            n = self.N[a, b].copy()
+            n = self.shade_normal(a, b, j)
             if side < 0:
                 p = p * (1, -1, 1)
                 n = n * (1, -1, 1)

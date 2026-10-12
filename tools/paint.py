@@ -170,6 +170,14 @@ def bake_loft_chart(spec, chart, atlas, mga, height, dirt, px, cls, lights):
         put((tn >= 0.06) & (tn <= 0.29) & (J2 >= 9.6) & (J2 <= 12.6), C['black'], 0.85)
         # skirt and coupler recess
         put((X3 > 9.4) & (Z < 0.82), C['under'], 0.3)
+        # small air intake grilles beside the coupler recess and panel shut lines of the chin
+        chin_front = (X3 > 13.0) & (Z > 1.0) & (Z < 2.1)
+        for k in range(3):
+            zz0 = 1.88 + 0.06 * k
+            put(chin_front & (np.abs(np.abs(Y) - 0.78) < 0.12) & (np.abs(Z - zz0) < 0.015), C['black'], 0.4)
+        seam = (X3 > 12.0) & (np.abs(Z - 0.97) < 0.006)
+        col[seam] *= 0.55
+        hgt[seam] = -1
         for (a, b, cells) in spec.recess:
             put((X >= a) & (np.floor(J2) == cells[0]), C['black'], 0.3)
         # cab door
