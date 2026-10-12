@@ -1,0 +1,110 @@
+function data()
+return {
+		__version = "",
+		order = 0,
+		params = {
+			color_blend = {
+				fragmentProperties = {
+					{
+						albedoScales = { 0, 0, },
+						colors = {
+							{ -1, -1, -1, },
+							{ -1, -1, -1, },
+						},
+					},
+				},
+			},
+			dirt_rust = {
+				fragmentProperties = {
+					{
+						dirtColor = { 0.2157, 0.1569, 0.1137, },
+						dirtOpacity = 0.0,
+						dirtScale = 8,
+						rustColor = { 0.2431, 0.1725, 0.1412, },
+						rustOpacity = 0.3,
+						rustScale = 2.876,
+					},
+				},
+			},
+			light_receiver = {
+				fragmentProperties = {
+					{
+						isLegacyMaterial = false,
+						lightMask = 2,
+					},
+				},
+			},
+			map_albedo = {
+				fragmentSamplers = {
+					albedoTex = {
+						fileName = "tex/interior_albedo.dds",
+						type = "TWOD",
+					},
+				},
+			},
+			map_cblend_dirt_rust = {
+				fragmentSamplers = {
+					cblendDirtRustTex = {
+						fileName = "tex/body_cblend_dirt_rust.dds",
+						type = "TWOD",
+					},
+				},
+			},
+
+			map_dirt = {
+				fragmentSamplers = {
+					dirtTex = {
+						fileName = "::/vehicle/shared/mat/tex/dirt_albedo.dds",
+						type = "TWOD",
+					},
+				},
+			},
+			map_dirt_normal = {
+				fragmentSamplers = {
+					dirtNormalTex = {
+						fileName = "::/vehicle/shared/mat/tex/dirt_normal.dds",
+						redGreen = true,
+						type = "TWOD",
+					},
+				},
+			},
+			map_rust = {
+				fragmentSamplers = {
+					rustTex = {
+						fileName = "::/vehicle/shared/mat/tex/rust_albedo.dds",
+						type = "TWOD",
+					},
+				},
+			},
+			map_rust_normal = {
+				fragmentSamplers = {
+					rustNormalTex = {
+						fileName = "::/vehicle/shared/mat/tex/rust_normal.dds",
+						redGreen = true,
+						type = "TWOD",
+					},
+				},
+			},
+
+			map_metal_gloss_ao = {
+				fragmentSamplers = {
+					metalGlossAoTex = {
+						fileName = "tex/interior_metal_gloss_ao.dds",
+						type = "TWOD",
+					},
+				},
+			},
+			map_normal = {
+				fragmentSamplers = {
+					normalTex = {
+						fileName = "tex/flat_normal.dds",
+						redGreen = true,
+						type = "TWOD",
+					},
+				},
+			},
+
+		},
+		type = "PHYSICAL_NRML_MAP_CBLEND_DIRT",
+	}
+end

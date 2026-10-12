@@ -1,0 +1,41 @@
+function data()
+return {
+		__version = "",
+		order = 3,
+		params = {
+			alpha_test = {
+				fragmentProperties = {
+					{
+						cutout = false,
+						sorted = false,
+					},
+				},
+			},
+			light_receiver = {
+				fragmentProperties = {
+					{
+						isLegacyMaterial = false,
+						lightMask = 2,
+					},
+				},
+			},
+			map_albedo_opacity = {
+				fragmentSamplers = {
+					albedoOpacityTex = {
+						fileName = "tex/glass_albedo_opacity.dds",
+						type = "TWOD",
+					},
+				},
+			},
+			map_metal_gloss_ao = {
+				fragmentSamplers = {
+					metalGlossAoTex = {
+						fileName = "tex/glass_metal_gloss_ao.dds",
+						type = "TWOD",
+					},
+				},
+			},
+		},
+		type = "PHYS_TRANSPARENT",
+	}
+end

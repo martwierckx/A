@@ -1,0 +1,28 @@
+KI-generierter Inhalt: Dieser Mod (3D-Modell, Texturen, Texte und Vorschaubilder) wurde mit dem KI-Assistenten Claude (Anthropic) erstellt. Alle Vorschaubilder sind Renderings des Mod-eigenen 3D-Modells, keine echten Fotos.
+
+ÖBB Railjet Doppelstock (Stadler KISS)
+Sechsteiliger elektrischer Doppelstock-Triebzug für den Fernverkehr von Stadler für die ÖBB, ab Ende 2026 auf der Weststrecke Wien - Salzburg geplant. Form, Aufteilung und Lackierung wurden nach Zeichnungen und Renderings des echten Zuges nachgebaut.
+
+Fahrzeuge (im Depot unter "ÖBB Railjet Doppelstock")
+- Steuerwagen 1. Klasse (vorne)
+- Mittelwagen 2. Klasse mit Stromabnehmer
+- Mehrzweckwagen (Fahrräder und Rollstuhlplätze)
+- Mittelwagen 2. Klasse
+- Steuerwagen 2. Klasse (hinten, schon umgedreht)
+Ganzer Zug: Steuerwagen vorne + 2. Klasse mit Stromabnehmer + Mehrzweckwagen + 2. Klasse + 2. Klasse + Steuerwagen hinten.
+
+Technische Daten
+- Rund 160 m je sechsteiligem Zug, Breite 2,80 m, Höhe 4,60 m, Höchstgeschwindigkeit 200 km/h
+- 486 Sitzplätze je Zug, 2 Doppeltüren je Seite und Wagen
+- Geschätzt: 2 x 3000 kW, 300 kN Anfahrzugkraft, Leermasse rund 300 t
+
+Ausstattung
+- Doppelstock-Wagenkasten mit abgesenktem Boden zwischen den Drehgestellen, Zwischenebene über den Drehgestellen und abgesenkten Dachbereichen mit Dachausrüstung
+- Führerstand mit großer Frontscheibe, schwarzer Frontmaske, LED-Leuchten, Spitzenlicht und Scharfenbergkupplung
+- Echte Fensteröffnungen mit Glas, Innenraum auf drei Ebenen: Sitze (1. und 2. Klasse), Tische, Treppen, Gepäckablagen, Mehrzweckbereich, Führerpult
+- Animierte Schwenkschiebetüren (links/rechts), Gummiwulst-Übergänge zwischen den Wagen
+- Detaillierte Drehgestelle mit gelben Achslagerdeckeln, Luftfedern, Dämpfern, Fahrmotoren und Bremsscheiben
+- Drei Detailstufen
+
+Firmenlogos sind bewusst nicht enthalten. Keine Verbindung zu den ÖBB oder zu Stadler.
+KI-generierter Mod - erstellt mit Claude (Anthropic).

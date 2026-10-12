@@ -1,0 +1,28 @@
+AI-gegenereerde inhoud: deze mod (3D-model, textures, teksten en previewafbeeldingen) is gemaakt met de AI-assistent Claude (Anthropic). Alle previewafbeeldingen zijn renders van het eigen 3D-model van de mod, geen echte foto's.
+
+ÖBB Railjet dubbeldekker (Stadler KISS)
+Zesdelig elektrisch dubbeldeks treinstel voor lange afstand, gebouwd door Stadler voor de Oostenrijkse spoorwegen en gepland vanaf eind 2026 op de lijn Wenen - Salzburg. Vorm, indeling en kleurstelling zijn nagebouwd op basis van tekeningen en renders van de echte trein.
+
+Voertuigen (in het depot onder "ÖBB Railjet dubbeldekker")
+- Stuurstandrijtuig 1e klas (voor)
+- Tussenrijtuig 2e klas met pantograaf
+- Multifunctioneel rijtuig (fietsen en rolstoelplaatsen)
+- Tussenrijtuig 2e klas
+- Stuurstandrijtuig 2e klas (achter, al omgedraaid)
+Hele trein: stuurstand voor + 2e klas met pantograaf + multifunctioneel + 2e klas + 2e klas + stuurstand achter.
+
+Technische gegevens
+- Circa 160 m per zesdelige trein, breedte 2,80 m, hoogte 4,60 m, topsnelheid 200 km/h
+- 486 zitplaatsen per trein, 2 dubbele deuren per zijde en rijtuig
+- Geschat: 2 x 3000 kW, 300 kN aanzetkracht, leeggewicht circa 300 t
+
+Kenmerken
+- Dubbeldeks bak met verlaagde vloer tussen de draaistellen, tussenverdieping boven de draaistellen en verlaagde dakdelen met dakuitrusting
+- Cabine met grote voorruit, zwart frontmasker, LED-lampen, toplicht en Scharfenbergkoppeling
+- Echte raamopeningen met glas, interieur op drie niveaus: stoelen (1e en 2e klas), tafels, trappen, bagagerekken, multifunctionele ruimte, stuurpult
+- Geanimeerde zwenkschuifdeuren (links/rechts), rubberen balgen tussen de rijtuigen
+- Gedetailleerde draaistellen met gele aspotdeksels, luchtveren, dempers, tractiemotoren en remschijven
+- Drie detailniveaus
+
+Er zijn bewust geen bedrijfslogo's opgenomen. Niet verbonden aan de ÖBB of Stadler.
+AI-gegenereerde mod - gemaakt met Claude (Anthropic).

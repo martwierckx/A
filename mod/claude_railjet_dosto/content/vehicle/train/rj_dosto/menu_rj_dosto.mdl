@@ -1,0 +1,85 @@
+function data()
+return {
+	boundingInfo = {
+		bbMax = { 1.5, 1.5, 1.5, },
+		bbMin = { -1.5, -1.5, -1.5, },
+	},
+	collider = {
+		params = {
+			halfExtents = { 1.5, 1.5, 1.5, },
+		},
+		transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+		type = "BOX",
+	},
+	lods = {
+		{
+			node = {
+				children = {
+					{
+						materials = { "::/placeholders/mat/missing_object.mtl", },
+						mesh = "::/placeholders/msh/cube_1x1_lod0.msh",
+						name = "cube_1x1",
+						transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+					},
+				},
+				name = "RootNode",
+				transf = { 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, },
+			},
+			static = false,
+			visibleFrom = 0,
+			visibleTo = 1000,
+		},
+	},
+	metadata = {
+		availability = {
+			yearFrom = 2026,
+			yearTo = 0,
+		},
+		cost = {
+			price = -1,
+		},
+		description = {
+			name = _("menu_rj_dosto"),
+		},
+		emissions = {
+			noise = {
+				score = 25,
+			},
+			pollution = {
+				score = 0,
+			},
+		},
+		landVehicle = {
+			brakeDeceleration = 1.1,
+			engines = {
+				{
+					power = 6000,
+					tractiveEffort = 300,
+					type = "ELECTRIC",
+				},
+			},
+			friction = 0.02,
+			topSpeed = 55.5556,
+			weight = 300.0,
+		},
+		maintenance = {
+			lifespan = 21915,
+			runningCosts = -1,
+		},
+		railVehicle = {
+			config = {
+			},
+		},
+		transformator = {
+			name = "::/vehicle/tram/shared/default_tram.trf",
+		},
+		transportVehicle = {
+			carrier = "RAIL",
+			engineTransportModes = { },
+			transportModes = { },
+			filterTags = { },
+		},
+	},
+	version = 2,
+	}
+end

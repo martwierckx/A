@@ -1,0 +1,41 @@
+{
+    "en": {
+        "menu_rj_dosto": "OeBB Railjet double-deck (KISS)",
+        "rj_dosto_1_front_name": "Railjet double-deck - driving trailer 1st class (front)",
+        "rj_dosto_2_mid_name": "Railjet double-deck - intermediate car 2nd class with pantograph",
+        "rj_dosto_3_mz_name": "Railjet double-deck - multi-purpose car (bikes, wheelchairs)",
+        "rj_dosto_4_mid_name": "Railjet double-deck - intermediate car 2nd class",
+        "rj_dosto_6_rear_name": "Railjet double-deck - driving trailer 2nd class (rear, turned)",
+        "rj_dosto_1_front_desc": "Six-car double-deck long-distance multiple unit built by Stadler (KISS family) for OeBB, planned on the Vienna - Salzburg line from the end of 2026. 200 km/h, about 160 m, 486 seats. Build the train as: front driving trailer + 2nd class + multi-purpose + 2nd class + 2nd class (pantograph) + rear driving trailer. AI-generated vehicle (Claude, Anthropic); power and masses are estimates.",
+        "rj_dosto_2_mid_desc": "Six-car double-deck long-distance multiple unit built by Stadler (KISS family) for OeBB, planned on the Vienna - Salzburg line from the end of 2026. 200 km/h, about 160 m, 486 seats. Build the train as: front driving trailer + 2nd class + multi-purpose + 2nd class + 2nd class (pantograph) + rear driving trailer. AI-generated vehicle (Claude, Anthropic); power and masses are estimates.",
+        "rj_dosto_3_mz_desc": "Six-car double-deck long-distance multiple unit built by Stadler (KISS family) for OeBB, planned on the Vienna - Salzburg line from the end of 2026. 200 km/h, about 160 m, 486 seats. Build the train as: front driving trailer + 2nd class + multi-purpose + 2nd class + 2nd class (pantograph) + rear driving trailer. AI-generated vehicle (Claude, Anthropic); power and masses are estimates.",
+        "rj_dosto_4_mid_desc": "Six-car double-deck long-distance multiple unit built by Stadler (KISS family) for OeBB, planned on the Vienna - Salzburg line from the end of 2026. 200 km/h, about 160 m, 486 seats. Build the train as: front driving trailer + 2nd class + multi-purpose + 2nd class + 2nd class (pantograph) + rear driving trailer. AI-generated vehicle (Claude, Anthropic); power and masses are estimates.",
+        "rj_dosto_6_rear_desc": "Six-car double-deck long-distance multiple unit built by Stadler (KISS family) for OeBB, planned on the Vienna - Salzburg line from the end of 2026. 200 km/h, about 160 m, 486 seats. Build the train as: front driving trailer + 2nd class + multi-purpose + 2nd class + 2nd class (pantograph) + rear driving trailer. AI-generated vehicle (Claude, Anthropic); power and masses are estimates."
+    },
+    "de": {
+        "menu_rj_dosto": "ÖBB Railjet Doppelstock (KISS)",
+        "rj_dosto_1_front_name": "Railjet Doppelstock - Steuerwagen 1. Klasse (vorne)",
+        "rj_dosto_2_mid_name": "Railjet Doppelstock - Mittelwagen 2. Klasse mit Stromabnehmer",
+        "rj_dosto_3_mz_name": "Railjet Doppelstock - Mehrzweckwagen (Fahrräder, Rollstühle)",
+        "rj_dosto_4_mid_name": "Railjet Doppelstock - Mittelwagen 2. Klasse",
+        "rj_dosto_6_rear_name": "Railjet Doppelstock - Steuerwagen 2. Klasse (hinten, gedreht)",
+        "rj_dosto_1_front_desc": "Sechsteiliger Doppelstock-Fernverkehrstriebzug von Stadler (KISS-Familie) für die ÖBB, geplant ab Ende 2026 auf der Weststrecke Wien - Salzburg. 200 km/h, rund 160 m, 486 Sitzplätze. Zugbildung: Steuerwagen vorne + 2. Klasse + Mehrzweckwagen + 2. Klasse + 2. Klasse (Stromabnehmer) + Steuerwagen hinten. KI-generiertes Fahrzeug (Claude, Anthropic); Leistung und Massen sind Schätzwerte.",
+        "rj_dosto_2_mid_desc": "Sechsteiliger Doppelstock-Fernverkehrstriebzug von Stadler (KISS-Familie) für die ÖBB, geplant ab Ende 2026 auf der Weststrecke Wien - Salzburg. 200 km/h, rund 160 m, 486 Sitzplätze. Zugbildung: Steuerwagen vorne + 2. Klasse + Mehrzweckwagen + 2. Klasse + 2. Klasse (Stromabnehmer) + Steuerwagen hinten. KI-generiertes Fahrzeug (Claude, Anthropic); Leistung und Massen sind Schätzwerte.",
+        "rj_dosto_3_mz_desc": "Sechsteiliger Doppelstock-Fernverkehrstriebzug von Stadler (KISS-Familie) für die ÖBB, geplant ab Ende 2026 auf der Weststrecke Wien - Salzburg. 200 km/h, rund 160 m, 486 Sitzplätze. Zugbildung: Steuerwagen vorne + 2. Klasse + Mehrzweckwagen + 2. Klasse + 2. Klasse (Stromabnehmer) + Steuerwagen hinten. KI-generiertes Fahrzeug (Claude, Anthropic); Leistung und Massen sind Schätzwerte.",
+        "rj_dosto_4_mid_desc": "Sechsteiliger Doppelstock-Fernverkehrstriebzug von Stadler (KISS-Familie) für die ÖBB, geplant ab Ende 2026 auf der Weststrecke Wien - Salzburg. 200 km/h, rund 160 m, 486 Sitzplätze. Zugbildung: Steuerwagen vorne + 2. Klasse + Mehrzweckwagen + 2. Klasse + 2. Klasse (Stromabnehmer) + Steuerwagen hinten. KI-generiertes Fahrzeug (Claude, Anthropic); Leistung und Massen sind Schätzwerte.",
+        "rj_dosto_6_rear_desc": "Sechsteiliger Doppelstock-Fernverkehrstriebzug von Stadler (KISS-Familie) für die ÖBB, geplant ab Ende 2026 auf der Weststrecke Wien - Salzburg. 200 km/h, rund 160 m, 486 Sitzplätze. Zugbildung: Steuerwagen vorne + 2. Klasse + Mehrzweckwagen + 2. Klasse + 2. Klasse (Stromabnehmer) + Steuerwagen hinten. KI-generiertes Fahrzeug (Claude, Anthropic); Leistung und Massen sind Schätzwerte."
+    },
+    "nl": {
+        "menu_rj_dosto": "ÖBB Railjet dubbeldekker (KISS)",
+        "rj_dosto_1_front_name": "Railjet dubbeldekker - stuurstandrijtuig 1e klas (voor)",
+        "rj_dosto_2_mid_name": "Railjet dubbeldekker - tussenrijtuig 2e klas met pantograaf",
+        "rj_dosto_3_mz_name": "Railjet dubbeldekker - multifunctioneel rijtuig (fietsen, rolstoelen)",
+        "rj_dosto_4_mid_name": "Railjet dubbeldekker - tussenrijtuig 2e klas",
+        "rj_dosto_6_rear_name": "Railjet dubbeldekker - stuurstandrijtuig 2e klas (achter, gedraaid)",
+        "rj_dosto_1_front_desc": "Zesdelig dubbeldeks treinstel voor lange afstand van Stadler (KISS-familie) voor de ÖBB, gepland vanaf eind 2026 op de Westbahn Wenen - Salzburg. 200 km/h, circa 160 m, 486 zitplaatsen. Samenstelling: stuurstand voor + 2e klas + multifunctioneel + 2e klas + 2e klas (pantograaf) + stuurstand achter. AI-gegenereerd voertuig (Claude, Anthropic); vermogen en massa zijn schattingen.",
+        "rj_dosto_2_mid_desc": "Zesdelig dubbeldeks treinstel voor lange afstand van Stadler (KISS-familie) voor de ÖBB, gepland vanaf eind 2026 op de Westbahn Wenen - Salzburg. 200 km/h, circa 160 m, 486 zitplaatsen. Samenstelling: stuurstand voor + 2e klas + multifunctioneel + 2e klas + 2e klas (pantograaf) + stuurstand achter. AI-gegenereerd voertuig (Claude, Anthropic); vermogen en massa zijn schattingen.",
+        "rj_dosto_3_mz_desc": "Zesdelig dubbeldeks treinstel voor lange afstand van Stadler (KISS-familie) voor de ÖBB, gepland vanaf eind 2026 op de Westbahn Wenen - Salzburg. 200 km/h, circa 160 m, 486 zitplaatsen. Samenstelling: stuurstand voor + 2e klas + multifunctioneel + 2e klas + 2e klas (pantograaf) + stuurstand achter. AI-gegenereerd voertuig (Claude, Anthropic); vermogen en massa zijn schattingen.",
+        "rj_dosto_4_mid_desc": "Zesdelig dubbeldeks treinstel voor lange afstand van Stadler (KISS-familie) voor de ÖBB, gepland vanaf eind 2026 op de Westbahn Wenen - Salzburg. 200 km/h, circa 160 m, 486 zitplaatsen. Samenstelling: stuurstand voor + 2e klas + multifunctioneel + 2e klas + 2e klas (pantograaf) + stuurstand achter. AI-gegenereerd voertuig (Claude, Anthropic); vermogen en massa zijn schattingen.",
+        "rj_dosto_6_rear_desc": "Zesdelig dubbeldeks treinstel voor lange afstand van Stadler (KISS-familie) voor de ÖBB, gepland vanaf eind 2026 op de Westbahn Wenen - Salzburg. 200 km/h, circa 160 m, 486 zitplaatsen. Samenstelling: stuurstand voor + 2e klas + multifunctioneel + 2e klas + 2e klas (pantograaf) + stuurstand achter. AI-gegenereerd voertuig (Claude, Anthropic); vermogen en massa zijn schattingen."
+    }
+}

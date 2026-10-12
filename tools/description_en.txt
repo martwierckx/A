@@ -1,0 +1,28 @@
+AI-generated content: this mod (3D model, textures, texts and preview images) was created with the AI assistant Claude (Anthropic). All preview images are renders of the mod's own 3D model, not real photos.
+
+OeBB Railjet double-deck (Stadler KISS)
+Six-car double-deck electric multiple unit for long-distance traffic, built by Stadler for the Austrian Federal Railways and planned on the Vienna - Salzburg line from the end of 2026. Shape, layout and livery were rebuilt from drawings and renders of the real train.
+
+Vehicles (in the depot under "OeBB Railjet double-deck")
+- Driving trailer 1st class (front)
+- Intermediate car 2nd class with pantograph
+- Multi-purpose car (bike and wheelchair area)
+- Intermediate car 2nd class
+- Driving trailer 2nd class (rear, already turned round)
+Full train: front driving trailer + 2nd class with pantograph + multi-purpose + 2nd class + 2nd class + rear driving trailer.
+
+Technical data
+- About 160 m per six-car train, width 2.80 m, height 4.60 m, top speed 200 km/h
+- 486 seats per train, 2 double-width doors per side and car
+- Estimated: 2 x 3,000 kW, 300 kN starting tractive effort, empty mass about 300 t
+
+Features
+- Double-deck body with lowered floor between the bogies, mezzanine level over the bogies and lowered roof sections with roof equipment
+- Driving cab with large windscreen, black front mask, LED light clusters, top light and Scharfenberg coupler
+- Real window openings with glass, interior on three levels: seats (1st and 2nd class), tables, stairs, luggage racks, multi-purpose area, driver's desk
+- Animated plug sliding doors (left/right), rubber gangways between the cars
+- Detailed bogies with yellow axle box covers, air springs, dampers, traction motors and brake discs
+- Three levels of detail
+
+No company logos are included. Not affiliated with OeBB or Stadler.
+AI-generated mod - made with Claude (Anthropic).
